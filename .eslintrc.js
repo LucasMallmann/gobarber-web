@@ -34,5 +34,6 @@ module.exports = {
     'no-console': ['error', { allow: ['tron'] }],
     'react/jsx-one-expression-per-line': 'off',
     'global-require': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
