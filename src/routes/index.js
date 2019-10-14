@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
-import Signin from '../pages/Signin';
-import Signup from '../pages/Signup';
-import Profile from '../pages/Profile';
-import Dashboard from '../pages/Dashboard';
+import Signin from '~/pages/Signin';
+import Signup from '~/pages/Signup';
+import Profile from '~/pages/Profile';
+import Dashboard from '~/pages/Dashboard';
 
 /** Custom Route */
 import Route from './Route';
