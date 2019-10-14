@@ -12,7 +12,7 @@ import DefaultLayout from '../pages/_layouts/default';
  * @param {object} ...rest
  */
 const RouteWrapper = ({ component: Component, isPrivate = false, ...rest }) => {
-  const signed = true;
+  const signed = false;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
