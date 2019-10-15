@@ -1,3 +1,12 @@
-import { all } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 
-export default all([]);
+import api from '~/services/api';
+
+export function* signIn({ payload }) {
+  try {
+    const { email, password } = payload;
+    yield null;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -1,7 +1,7 @@
-import { all } from 'redux-saga/effects';
+import { all, takeLatest } from 'redux-saga/effects';
 
-import auth from './auth';
+import { Types as AuthTypes } from '~/store/ducks/auth';
 
 export default function* rootSaga() {
-  return yield all([auth]);
+  yield all([takeLatest(AuthTypes.SING_IN_REQUEST, () => {})]);
 }
