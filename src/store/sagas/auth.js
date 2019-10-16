@@ -34,4 +34,31 @@ export function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest(AuthTypes.SING_IN_REQUEST, signIn)]);
+/**
+ * Saga effect to Store the a new User
+ * @param {object} payload
+ */
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+
+    yield call(api.post, '/users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    toast.success('Conta criada com sucesso');
+
+    history.push('/');
+  } catch (error) {
+    toast.error('Falha no cadastro, verifique seus dados');
+    yield put(AuthActions.signFailure());
+  }
+}
+
+export default all([
+  takeLatest(AuthTypes.SING_IN_REQUEST, signIn),
+  takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp),
+]);

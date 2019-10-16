@@ -10,6 +10,7 @@ export const Types = {
   SING_IN_REQUEST: '@auth/SING_IN_REQUEST',
   SING_IN_SUCCESS: '@auth/SING_IN_SUCCESS',
   SIGN_FAILURE: '@auth/SIGN_FAILURE',
+  SIGN_UP_REQUEST: '@auth/SIGN_UP_REQUEST',
 };
 
 export const ActionCreators = {
@@ -29,6 +30,17 @@ export const ActionCreators = {
   signInSuccess: (token, user) => ({
     type: Types.SING_IN_SUCCESS,
     payload: { token, user },
+  }),
+
+  /**
+   * Store a new user
+   * @param {string} name
+   * @param {string} email
+   * @param {string} password
+   */
+  signUpRequest: (name, email, password) => ({
+    type: Types.SIGN_UP_REQUEST,
+    payload: { name, email, password },
   }),
 
   signFailure: () => ({

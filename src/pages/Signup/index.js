@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+
+import { ActionCreators as AuthActions } from '~/store/ducks/auth';
 
 import logo from '~/assets/logo.svg';
 
@@ -16,8 +19,10 @@ const schema = Yup.object().shape({
 });
 
 export default function Signup() {
-  function handleSubmit(data) {
-    console.log(data);
+  const dispatch = useDispatch();
+
+  function handleSubmit({ name, email, password }) {
+    dispatch(AuthActions.signUpRequest(name, email, password));
   }
 
   return (
