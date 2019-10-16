@@ -1,4 +1,5 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 import {
   Types as AuthTypes,
   ActionCreators as AuthActions,
@@ -12,20 +13,25 @@ import history from '~/services/history';
  * @param {object} payload
  */
 export function* signIn({ payload }) {
-  const { email, password } = payload;
+  try {
+    const { email, password } = payload;
 
-  const response = yield call(api.post, '/sessions', { email, password });
+    const response = yield call(api.post, '/sessions', { email, password });
 
-  const { token, user } = response.data;
+    const { token, user } = response.data;
 
-  if (!user.provider) {
-    console.tron.error('Você não é prestador de serviço');
-    return;
+    if (!user.provider) {
+      toast.error('Você não é prestador de serviço');
+      return;
+    }
+
+    yield put(AuthActions.signInSuccess(token, user));
+
+    history.push('/dashboard');
+  } catch (error) {
+    toast.error('Falha na autenticação, verifique seus dados');
+    yield put(AuthActions.signFailure());
   }
-
-  yield put(AuthActions.signInSuccess(token, user));
-
-  history.push('/dashboard');
 }
 
 export default all([takeLatest(AuthTypes.SING_IN_REQUEST, signIn)]);

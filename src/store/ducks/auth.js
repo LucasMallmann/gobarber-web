@@ -37,13 +37,25 @@ export const ActionCreators = {
 };
 
 export default function auth(state = initialState, action) {
-  switch (action.type) {
-    case Types.SING_IN_SUCCESS:
-      return produce(state, draft => {
+  return produce(state, draft => {
+    switch (action.type) {
+      case Types.SING_IN_SUCCESS: {
         draft.token = action.payload.token;
         draft.signed = true;
-      });
-    default:
-      return state;
-  }
+        draft.loading = false;
+        break;
+      }
+
+      case Types.SING_IN_REQUEST: {
+        draft.loading = true;
+        break;
+      }
+      case Types.SIGN_FAILURE: {
+        draft.loading = false;
+        draft.token = null;
+        break;
+      }
+      default:
+    }
+  });
 }
