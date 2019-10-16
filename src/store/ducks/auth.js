@@ -1,4 +1,10 @@
-const initialState = {};
+import produce from 'immer';
+
+const initialState = {
+  token: null,
+  signed: false,
+  loading: false,
+};
 
 export const Types = {
   SING_IN_REQUEST: '@auth/SING_IN_REQUEST',
@@ -32,6 +38,11 @@ export const ActionCreators = {
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
+    case Types.SING_IN_SUCCESS:
+      return produce(state, draft => {
+        draft.token = action.payload.token;
+        draft.signed = true;
+      });
     default:
       return state;
   }

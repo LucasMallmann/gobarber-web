@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import AuthLayout from '../pages/_layouts/auth';
 import DefaultLayout from '../pages/_layouts/default';
 
+import { store } from '~/store';
+
 /**
  * Custom Wrapper function to React Router DOM to protect private routes
  * @param {React.Component} component
@@ -12,7 +14,7 @@ import DefaultLayout from '../pages/_layouts/default';
  * @param {object} ...rest
  */
 const RouteWrapper = ({ component: Component, isPrivate = false, ...rest }) => {
-  const signed = false;
+  const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
