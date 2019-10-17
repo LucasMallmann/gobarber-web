@@ -58,7 +58,23 @@ export function* signUp({ payload }) {
   }
 }
 
+/**
+ * Saga to be execute when Redux Persist gets called. Store the token in the api service
+ */
+function setToken({ payload }) {
+  if (!payload) {
+    return;
+  }
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest(AuthTypes.SING_IN_REQUEST, signIn),
   takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp),
 ]);
