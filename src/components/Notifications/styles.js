@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
+import PerfectScrollBar from 'react-perfect-scrollbar';
 
 export const Container = styled.div`
   position: relative;
@@ -8,6 +9,7 @@ export const Container = styled.div`
 export const Badge = styled.button`
   background: none;
   border: 0;
+  cursor: pointer;
   position: relative;
 
   ${props =>
@@ -32,8 +34,10 @@ export const NotificationList = styled.div`
   left: calc(50% - 130px);
   top: calc(100% + 30px);
   background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
+  padding: 15px 5px;
   border-radius: 4px;
+
+  display: ${props => (props.visible ? 'block' : 'none')};
 
   &::before {
     content: '';
@@ -46,6 +50,11 @@ export const NotificationList = styled.div`
     border-right: 20px solid transparent;
     border-bottom: 20px solid rgba(0, 0, 0, 0.6);
   }
+`;
+
+export const Scroll = styled(PerfectScrollBar)`
+  max-height: 260px;
+  padding: 5px 15px;
 `;
 
 export const Notification = styled.div`
@@ -76,6 +85,7 @@ export const Notification = styled.div`
     padding: 0 5px;
     margin: 0 5px;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
   }
 
   ${props =>
@@ -88,6 +98,7 @@ export const Notification = styled.div`
         background: #ff892e;
         content: '';
         border-radius: 50%;
+        bottom: 4px;
       }
     `}
 `;
