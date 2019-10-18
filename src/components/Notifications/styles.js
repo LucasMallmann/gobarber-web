@@ -59,7 +59,21 @@ export const Scroll = styled(PerfectScrollBar)`
 
 export const Notification = styled.div`
   color: #fff;
-  position: relative;
+  /* position: relative; */
+
+  ${props =>
+    props.unread &&
+    css`
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #ff892e;
+        border-radius: 50%;
+        margin-left: 10px;
+      }
+    `}
 
   & + div {
     margin-top: 15px;
@@ -75,6 +89,9 @@ export const Notification = styled.div`
   time {
     font-size: 12px;
     opacity: 0.6;
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 5px;
   }
 
   button {
@@ -82,23 +99,6 @@ export const Notification = styled.div`
     background: none;
     border: 0;
     color: ${lighten(0.2, '#7159c1')};
-    padding: 0 5px;
-    margin: 0 5px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
   }
-
-  ${props =>
-    props.unread &&
-    css`
-      &::after {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: #ff892e;
-        content: '';
-        border-radius: 50%;
-        bottom: 4px;
-      }
-    `}
 `;

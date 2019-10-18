@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MdNotifications } from 'react-icons/md';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -43,49 +43,53 @@ export default function Notifications() {
     loadNotifications();
   }, []);
 
+  const hasUnreadNotifications = useMemo(
+    () => !!notifications.find(notification => notification.read === false),
+    [notifications]
+  );
+
+  /**
+   * Update and mark the notification as read
+   * @param {string} id
+   */
+  async function markNotificationAsRead(id) {
+    // This will already mark the notification as read
+    await api.put(`notifications/${id}`);
+
+    const updatedNotifications = notifications.map(notification =>
+      notification._id === id
+        ? {
+            ...notification,
+            read: true,
+          }
+        : notification
+    );
+
+    setNotifications(updatedNotifications);
+  }
+
   return (
     <Container>
-      <Badge onClick={handleToggleVisible} hasUnread>
+      <Badge onClick={handleToggleVisible} hasUnread={hasUnreadNotifications}>
         <MdNotifications color="#7159c1" size={20} />
       </Badge>
 
       <NotificationList visible={visible}>
         <Scroll>
-          <Notification unread>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-
-          <Notification>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-
-          <Notification>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-
-          <Notification>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-
-          <Notification>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-
-          <Notification>
-            <p>Você possui um novo agendamento para amanhã</p>
-            <time>há 2 dias atrás</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
+          {notifications.map(notification => (
+            <Notification key={notification._id} unread={!notification.read}>
+              <p>{notification.content}</p>
+              <time>{notification.timeDistance}</time>
+              {!notification.read && (
+                <button
+                  onClick={() => markNotificationAsRead(notification._id)}
+                  type="button"
+                >
+                  Marcar como lida
+                </button>
+              )}
+            </Notification>
+          ))}
         </Scroll>
       </NotificationList>
     </Container>
