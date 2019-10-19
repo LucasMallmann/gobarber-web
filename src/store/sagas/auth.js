@@ -59,7 +59,8 @@ export function* signUp({ payload }) {
 }
 
 /**
- * Saga to be execute when Redux Persist gets called. Store the token in the api service
+ * Saga to be execute when Redux Persist ('persist/REHYDRATE') retrieves the token
+ * Will store the token in the api service by default, so it can be used in future requests
  */
 function setToken({ payload }) {
   if (!payload) {
