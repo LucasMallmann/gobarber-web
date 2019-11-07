@@ -11,8 +11,8 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   function handleSubmit(data) {
+    // console.tron.log(data);
     dispatch(UserActions.updateProfileRequest(data));
-    console.tron.log(data);
   }
 
   return (

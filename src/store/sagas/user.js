@@ -13,16 +13,18 @@ import {
  */
 function* updateProfile({ payload }) {
   try {
-    const { name, email, ...rest } = payload;
+    const { name, email, ...rest } = payload.data;
     const profile = { name, email, ...(rest.oldPassword ? rest : {}) };
+
+    console.tron.log(profile);
 
     const response = yield call(api.put, '/users', profile);
 
-    toast.success('Perfil atualizado com sucesso!');
-
     yield put(UserActions.updateProfileSuccess(response.data));
+    toast.success('Perfil atualizado com sucesso!');
   } catch (error) {
     toast.error('Erro ao atualizar perfil. Por favor, verifique seus dados');
+    console.tron.log(error);
     yield put(UserActions.updateProfileError());
   }
 }

@@ -51,6 +51,9 @@ export default function user(state = initialState, action) {
         draft.profile = action.payload.profile;
       });
 
+    case Types.UPDATE_PROFILE_ERROR:
+      return state;
+
     default:
       return state;
   }
