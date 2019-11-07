@@ -76,8 +76,13 @@ function setToken({ payload }) {
   }
 }
 
+function signOut() {
+  history.push('/');
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest(AuthTypes.SING_IN_REQUEST, signIn),
   takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp),
+  takeLatest(AuthTypes.SIGN_OUT, signOut),
 ]);

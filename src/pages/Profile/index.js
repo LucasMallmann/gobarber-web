@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AvatarInput from './AvatarInput';
 
 import { ActionCreators as UserActions } from '~/store/ducks/user';
+import { ActionCreators as AuthActions } from '~/store/ducks/auth';
 
 import { Container } from './styles';
 
@@ -13,8 +14,11 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   function handleSubmit(data) {
-    // console.tron.log(data);
     dispatch(UserActions.updateProfileRequest(data));
+  }
+
+  function logout() {
+    dispatch(AuthActions.signOut());
   }
 
   return (
@@ -44,7 +48,9 @@ export default function Profile() {
         <button type="submit">Atualizar Perfil</button>
       </Form>
 
-      <button type="button">Sair do GoBarber</button>
+      <button type="button" onClick={logout}>
+        Sair do GoBarber
+      </button>
     </Container>
   );
 }

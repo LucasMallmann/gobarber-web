@@ -54,6 +54,11 @@ export default function user(state = initialState, action) {
     case Types.UPDATE_PROFILE_ERROR:
       return state;
 
+    case AuthTypes.SIGN_OUT:
+      return produce(state, draft => {
+        draft.profile = null;
+      });
+
     default:
       return state;
   }

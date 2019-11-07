@@ -11,6 +11,7 @@ export const Types = {
   SING_IN_SUCCESS: '@auth/SING_IN_SUCCESS',
   SIGN_FAILURE: '@auth/SIGN_FAILURE',
   SIGN_UP_REQUEST: '@auth/SIGN_UP_REQUEST',
+  SIGN_OUT: '@auth/SIGN_OUT',
 };
 
 export const ActionCreators = {
@@ -43,8 +44,18 @@ export const ActionCreators = {
     payload: { name, email, password },
   }),
 
+  /**
+   * When the login does not work
+   */
   signFailure: () => ({
     type: Types.SIGN_FAILURE,
+  }),
+
+  /**
+   * Logout of the application
+   */
+  signOut: () => ({
+    type: Types.SIGN_OUT,
   }),
 };
 
@@ -67,7 +78,13 @@ export default function auth(state = initialState, action) {
         draft.token = null;
         break;
       }
+      case Types.SIGN_OUT: {
+        draft.signed = false;
+        draft.token = null;
+        break;
+      }
       default:
+        return state;
     }
   });
 }
