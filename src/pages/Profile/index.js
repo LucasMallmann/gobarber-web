@@ -14,6 +14,7 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   function handleSubmit(data) {
+    console.tron.log(data);
     dispatch(UserActions.updateProfileRequest(data));
   }
 
@@ -27,27 +28,24 @@ export default function Profile() {
         <AvatarInput name="avatar_id" />
 
         <Input name="name" placeholder="Nome completo" />
-        <Input name="email" type="email" placeholder="Seu endereço de e-mail" />
+        <Input name="email" placeholder="Seu endereço de e-mail" />
 
         <hr />
 
         <Input
-          name="oldPassword"
           type="password"
+          name="oldPassword"
           placeholder="Sua senha atual"
         />
-
-        <Input name="password" type="password" placeholder="Sua nova senha" />
-
+        <Input type="password" name="password" placeholder="Nova senha" />
         <Input
-          name="confirmPassword"
           type="password"
+          name="confirmPassword"
           placeholder="Confirmação de senha"
         />
 
-        <button type="submit">Atualizar Perfil</button>
+        <button type="submit">Atualizar perfil</button>
       </Form>
-
       <button type="button" onClick={logout}>
         Sair do GoBarber
       </button>

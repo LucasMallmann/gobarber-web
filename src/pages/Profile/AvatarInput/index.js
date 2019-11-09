@@ -13,19 +13,6 @@ export default function AvatarInput() {
 
   const ref = useRef();
 
-  /**
-   * Register the custom input to make unform know it exists
-   */
-  useEffect(() => {
-    if (ref.current) {
-      registerField({
-        name: 'avatar_id',
-        ref: ref.current,
-        path: 'dataset.file',
-      });
-    }
-  }, [ref, registerField]);
-
   async function handleChange(e) {
     const data = new FormData();
 
@@ -38,6 +25,16 @@ export default function AvatarInput() {
     setPreview(url);
   }
 
+  useEffect(() => {
+    if (ref.current) {
+      registerField({
+        name: 'avatar_id',
+        ref: ref.current,
+        path: 'dataset.file',
+      });
+    }
+  }, [ref]); //eslint-disable-line
+
   return (
     <Container>
       <label htmlFor="avatar">
@@ -49,7 +46,6 @@ export default function AvatarInput() {
         />
         <input
           type="file"
-          name=""
           id="avatar"
           accept="image/*"
           data-file={file}
